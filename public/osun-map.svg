@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <style>
+    .lga {
+      fill: #1a344d;
+      stroke: #66f4e1;
+      stroke-width: 1.5;
+      transition: fill 0.3s ease;
+    }
+    .lga:hover {
+      fill: #66f4e1;
+    }
+    .lga-text {
+      font-family: monospace;
+      font-size: 10px;
+      fill: #ccd6f6;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .lga:hover + .lga-text, .lga:hover + text {
+       opacity: 1;
+    }
+  </style>
+  <rect width="800" height="600" fill="#0d1a26"/>
+  <g id="osun-lgas">
+    <!-- This is a simplified, artistic representation of Osun LGAs. Not geographically perfect. -->
+    <path class="lga" d="M300,150 L350,120 L400,160 L360,200 Z"><title>Olorunda</title></path>
+    <text x="350" y="165" class="lga-text">Olorunda</text>
+    <path class="lga" d="M400,160 L450,140 L480,190 L420,220 Z"><title>Ife North</title></path>
+    <text x="435" y="185" class="lga-text">Ife North</text>
+    <path class="lga" d="M360,200 L420,220 L380,270 L330,250 Z"><title>Osogbo</title></path>
+    <text x="370" y="240" class="lga-text">Osogbo</text>
+    <path class="lga" d="M420,220 L480,190 L500,250 L450,280 Z"><title>Ife East</title></path>
+    <text x="460" y="235" class="lga-text">Ife East</text>
+    <path class="lga" d="M250,200 L300,150 L330,250 L270,280 Z"><title>Ede North</title></path>
+    <text x="285" y="225" class="lga-text">Ede North</text>
+    <path class="lga" d="M270,280 L330,250 L380,270 L340,320 L290,310 Z"><title>Ede South</title></path>
+    <text x="320" y="285" class="lga-text">Ede South</text>
+    <path class="lga" d="M380,270 L450,280 L470,340 L400,350 Z"><title>Ife South</title></path>
+    <text x="425" y="315" class="lga-text">Ife South</text>
+    <path class="lga" d="M200,250 L250,200 L270,280 L220,310 Z"><title>Egbedore</title></path>
+    <text x="235" y="265" class="lga-text">Egbedore</text>
+    <path class="lga" d="M300,340 L340,320 L400,350 L350,390 Z"><title>Ayedaade</title></path>
+    <text x="345" y="355" class="lga-text">Ayedaade</text>
+    <path class="lga" d="M450,370 L470,340 L400,350 L420,400 Z"><title>Atakunmosa</title></path>
+    <text x="435" y="370" class="lga-text">Atakunmosa</text>
+    <path class="lga" d="M250,330 L290,310 L300,340 L260,360 Z"><title>Irewole</title></path>
+    <text x="275" y="335" class="lga-text">Irewole</text>
+    <path class="lga" d="M500,250 L540,230 L560,290 L510,310 Z"><title>Ilesa East</title></path>
+    <text x="525" y="275" class="lga-text">Ilesa East</text>
+    <path class="lga" d="M510,310 L560,290 L580,350 L530,370 Z"><title>Ilesa West</title></path>
+    <text x="545" y="330" class="lga-text">Ilesa West</text>
+    <path class="lga" d="M200,180 L250,150 L300,150 L250,200 Z"><title>Boluwaduro</title></path>
+    <text x="250" y="170" class="lga-text">Boluwaduro</text>
+    <path class="lga" d="M350,120 L420,100 L450,140 L400,160 Z"><title>Ifelodun</title></path>
+    <text x="410" y="130" class="lga-text">Ifelodun</text>
+  </g>
+  <text x="400" y="50" fill="#66f4e1" font-size="24" text-anchor="middle" font-family="monospace">OSUN STATE LGA MAP [INTERACTIVE]</text>
+  <text x="400" y="550" fill="#8892b0" font-size="12" text-anchor="middle" font-family="monospace">Hover over a Local Government Area to see key statistics.</text>
+</svg>

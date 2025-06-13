@@ -1,76 +1,45 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar
+} from 'recharts';
 
-const ChartComponent = ({ chartId, type, data, options, footerText, className = '' }) => {
-    const chartRef = useRef(null);
-    const chartInstance = useRef(null);
+const chartComponents = {
+  LineChart, BarChart
+};
 
-    useEffect(() => {
-        let observer;
-        const canvas = chartRef.current;
-        if (!canvas) return;
-        
-        const renderChart = () => {
-            if (chartInstance.current) {
-                chartInstance.current.destroy();
-            }
+const seriesComponents = {
+  Line, Bar
+};
 
-            try {
-                Chart.defaults.font.family = "'Inter', sans-serif";
-                Chart.defaults.color = '#e2e8f0'; 
-                Chart.defaults.borderColor = '#475569'; 
+const ChartComponent = ({ data, chartType, series, title, description }) => {
+    const Chart = chartComponents[chartType] || LineChart;
 
-                const ctx = canvas.getContext('2d');
-                chartInstance.current = new Chart(ctx, {
-                    type: type,
-                    data: data,
-                    options: options,
-                });
-            } catch (error) {
-                console.error(`Error initializing chart ${chartId}:`, error);
-            }
-        };
-        
-        // Use Intersection Observer to delay rendering until the chart is visible.
-        // This improves initial page load performance.
-        observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        renderChart();
-                        observer.unobserve(canvas); // Stop observing once rendered
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
-        
-        observer.observe(canvas);
-
-        return () => {
-            if (observer && canvas) {
-                observer.unobserve(canvas);
-            }
-            if (chartInstance.current) {
-                chartInstance.current.destroy();
-            }
-        };
-    }, [type, data, options, chartId]); 
-
-    return (
-        <div className={`chart-container bg-slate-800 border border-slate-700 flex flex-col justify-between p-0 rounded-none h-full ${className}`}>
-            <div className="chart-canvas-wrapper flex-grow flex items-center justify-center p-4 min-h-[350px]">
-                <canvas ref={chartRef} id={chartId}></canvas>
-            </div>
-            {footerText && (
-                <div className="chart-info-footer bg-slate-900/50 border-t border-slate-700 p-2 text-xs text-slate-400 text-right">
-                    {`//: ${footerText}`}
-                </div>
-            )}
+  return (
+    <div className="bg-console-dark/50 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-inner border border-console-blue/50">
+        <h3 className="text-xl font-bold text-console-cyan mb-1">{title}</h3>
+        <p className="text-sm text-console-gray mb-6">{description}</p>
+        <div style={{ width: '100%', height: 300 }}>
+            <ResponsiveContainer>
+                <Chart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1a344d" />
+                    <XAxis dataKey="name" stroke="#8892b0" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#8892b0" fontSize={12} tickLine={false} axisLine={false} />
+                    <Tooltip
+                        contentStyle={{ backgroundColor: '#0d1a26', border: '1px solid #1a344d', borderRadius: '0.25rem' }}
+                        labelStyle={{ color: '#66f4e1' }}
+                        itemStyle={{ color: '#ccd6f6' }}
+                    />
+                    <Legend wrapperStyle={{fontSize: "14px"}}/>
+                    {series.map((s, index) => {
+                        const SeriesComponent = seriesComponents[s.type] || Line;
+                        return <SeriesComponent key={index} {...s} />
+                    })}
+                </Chart>
+            </ResponsiveContainer>
         </div>
-    );
+    </div>
+  );
 };
 
 export default ChartComponent;

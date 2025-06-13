@@ -1,135 +1,124 @@
-'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { BookOpen, HeartPulse, Briefcase, Shield, Users, ArrowRight, Rss, Download } from 'lucide-react';
+import ChartComponent from '@/components/ChartComponent';
 
-import React, { useState, useEffect } from 'react';
-import SectionOverview from '../components/SectionOverview';
-import SectionChildYouth from '../components/SectionChildYouth';
-import SectionPoverty from '../components/SectionPoverty';
-import SectionHealth from '../components/SectionHealth';
-import SectionElderly from '../components/SectionElderly';
+const outOfSchoolData = [
+  { name: '2019', 'Osun Rate (%)': 15 },
+  { name: '2020', 'Osun Rate (%)': 14 },
+  { name: '2021', 'Osun Rate (%)': 13 },
+  { name: '2022', 'Osun Rate (%)': 11.5 },
+  { name: '2023', 'Osun Rate (%)': 10 },
+  { name: '2024', 'Osun Rate (%)': 9.5 },
+];
+
+const unemploymentData = [
+  { name: 'Osun', Rate: 11.7 },
+  { name: 'National', Rate: 33.3 },
+  { name: 'Lagos', Rate: 14 },
+  { name: 'Bauchi', Rate: 27 },
+];
+
+const dimensions = [
+  { title: 'Education', icon: BookOpen, href: '/education', description: 'Analyze literacy, school enrollment, infrastructure gaps, and key educational programs shaping the future of Osun\'s youth.' },
+  { title: 'Health & Well-Being', icon: HeartPulse, href: '/health', description: 'Investigate child nutrition, adolescent health, healthcare access, and the performance of public health interventions.' },
+  { title: 'Employment & Skills', icon: Briefcase, href: '/employment', description: 'Explore the youth unemployment landscape, skills development initiatives, and the rise of entrepreneurship.' },
+  { title: 'Child Protection', icon: Shield, href: '/protection', description: 'Review legal frameworks, child labor statistics, and institutional efforts to protect vulnerable children from harm.' },
+  { title: 'Civic Engagement', icon: Users, href: '/civic-engagement', description: 'Understand youth participation in governance, the role of councils, and programs fostering community involvement.' },
+];
+
+const newsItems = [
+    { tag: 'Program Launch', title: 'Osun UpSkill Program Trains 50,000 Youths in Digital Literacy', description: 'The state\'s new "Osun UpSkill Program" is making significant strides in equipping 50,000 youths with critical digital skills and business development knowledge, aiming to boost employability and foster innovation across the region.' },
+    { tag: 'Success Story', title: 'Academic Performance Soars: Osun Ranks 7th in NECO SSCE', description: 'In a landmark achievement, Osun State has secured its best NECO SSCE performance in 18 years, climbing to the 7th position nationally with an impressive 71% pass rate in critical subjects.' },
+    { tag: 'Policy Update', title: 'Movement for Good to End FGM Launched in Partnership with UNICEF', description: 'Osun has launched a major initiative to combat Female Genital Mutilation, collaborating with UNICEF and community leaders to engage families and abandon the harmful traditional practice through education and support systems.' },
+];
 
 export default function HomePage() {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    
-    useEffect(() => {
-        const sections = Array.from(document.querySelectorAll('section[id]'));
-        if (sections.length === 0) return;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const id = entry.target.getAttribute('id');
-                    if (!id) return;
-                    
-                    const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
-                    const mobileNavLink = document.querySelector(`.mobile-nav-link[href="#${id}"]`);
-                    
-                    if (entry.isIntersecting) {
-                        document.querySelectorAll('.nav-link.active, .mobile-nav-link.active').forEach(link => link.classList.remove('active'));
-                        if (navLink) navLink.classList.add('active');
-                        if (mobileNavLink) mobileNavLink.classList.add('active');
-                    }
-                });
-            },
-            {
-                rootMargin: '-30% 0px -70% 0px',
-                threshold: 0,
-            }
-        );
-
-        sections.forEach((section) => {
-            observer.observe(section);
-        });
-
-        const handleNavLinkClick = (e) => {
-            e.preventDefault();
-            const targetId = e.currentTarget.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                });
-            }
-            if (isMobileMenuOpen) {
-                setIsMobileMenuOpen(false);
-            }
-        };
-
-        const allNavLinks = Array.from(document.querySelectorAll('a.nav-link[href^="#"], a.mobile-nav-link[href^="#"]'));
-        allNavLinks.forEach(link => {
-            link.addEventListener('click', handleNavLinkClick);
-        });
-
-        return () => {
-            sections.forEach((section) => observer.unobserve(section));
-            allNavLinks.forEach(link => link.removeEventListener('click', handleNavLinkClick));
-        };
-    }, [isMobileMenuOpen]);
-
-    return (
-        <div className="antialiased font-inter bg-slate-900 text-slate-200">
-            <header className="bg-slate-900/80 backdrop-blur-sm border-b-2 border-teal-500/50 sticky top-0 z-50">
-                <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        <div className="flex-shrink-0">
-                            <a href="#overview" className="text-xl md:text-2xl font-black text-sky-400 tracking-tighter hover:text-sky-300 transition-colors">
-                                [OSUN_INSIGHTS_v2.0]
-                            </a>
-                        </div>
-                        {/* Desktop Navigation */}
-                        <div className="hidden md:flex md:space-x-1">
-                            <a href="#overview" className="nav-link px-3 py-2 text-sm text-slate-400 font-medium transition-all duration-300 border-b-2 border-transparent hover:text-teal-300 hover:border-teal-400">/overview</a>
-                            <a href="#youth" className="nav-link px-3 py-2 text-sm text-slate-400 font-medium transition-all duration-300 border-b-2 border-transparent hover:text-teal-300 hover:border-teal-400">/child-youth</a>
-                            <a href="#poverty" className="nav-link px-3 py-2 text-sm text-slate-400 font-medium transition-all duration-300 border-b-2 border-transparent hover:text-teal-300 hover:border-teal-400">/poverty-inclusion</a>
-                            <a href="#health" className="nav-link px-3 py-2 text-sm text-slate-400 font-medium transition-all duration-300 border-b-2 border-transparent hover:text-teal-300 hover:border-teal-400">/health-wellbeing</a>
-                            <a href="#elderly" className="nav-link px-3 py-2 text-sm text-slate-400 font-medium transition-all duration-300 border-b-2 border-transparent hover:text-teal-300 hover:border-teal-400">/elderly-welfare</a>
-                        </div>
-                        {/* Mobile Menu Button */}
-                        <div className="md:hidden">
-                            <button
-                                id="mobile-menu-button"
-                                className="inline-flex items-center justify-center p-2 text-slate-400 hover:text-teal-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-400"
-                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                aria-expanded={isMobileMenuOpen}
-                                aria-controls="mobile-menu"
-                            >
-                                <span className="sr-only">Open main menu</span>
-                                {!isMobileMenuOpen ? (
-                                    <svg className="h-6 w-6 block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-                                ) : (
-                                    <svg className="h-6 w-6 block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                    {/* Mobile Navigation Menu */}
-                    <div id="mobile-menu" className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-slate-700">
-                            <a href="#overview" className="mobile-nav-link block px-3 py-2 text-base text-slate-300 rounded-sm hover:text-teal-300 hover:bg-slate-800">/overview</a>
-                            <a href="#youth" className="mobile-nav-link block px-3 py-2 text-base text-slate-300 rounded-sm hover:text-teal-300 hover:bg-slate-800">/child-youth</a>
-                            <a href="#poverty" className="mobile-nav-link block px-3 py-2 text-base text-slate-300 rounded-sm hover:text-teal-300 hover:bg-slate-800">/poverty-inclusion</a>
-                            <a href="#health" className="mobile-nav-link block px-3 py-2 text-base text-slate-300 rounded-sm hover:text-teal-300 hover:bg-slate-800">/health-wellbeing</a>
-                            <a href="#elderly" className="mobile-nav-link block px-3 py-2 text-base text-slate-300 rounded-sm hover:text-teal-300 hover:bg-slate-800">/elderly-welfare</a>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-
-            <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <SectionOverview />
-                <SectionChildYouth />
-                <SectionPoverty />
-                <SectionHealth />
-                <SectionElderly />
-            </main>
-            
-            <footer className="bg-slate-900 border-t-2 border-teal-500/50 mt-16">
-                <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
-                    <p>This interactive report is synthesized from deep research analysis on the current status of development in Osun State, Nigeria.</p>
-                    <p className='mt-2'>&copy; 2025 Interactive Development Insights. All data presented for informational and analytical purposes only. Synthesized data points are based on established trends and are for illustrative purposes.</p>
-                    <p className='mt-6 text-xs tracking-widest text-teal-700'>[SESSION_TERMINATED]</p>
-                </div>
-            </footer>
+  return (
+    <div className="space-y-24">
+      {/* Level 1: Hero Section */}
+      <section className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="space-y-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-console-light-gray leading-tight">
+            Nurturing Tomorrow: Child & Youth Development Across <span className="text-console-cyan">Osun State</span>
+          </h1>
+          <p className="text-lg text-console-gray">
+            A real-time, interactive data hub providing deep insights into the five key dimensions of youth development. Track progress, understand challenges, and explore the initiatives shaping the future.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/dashboard" className="px-6 py-3 bg-console-cyan text-console-dark font-bold rounded-md hover:bg-console-light-cyan transition-all shadow-lg shadow-console-cyan/20 flex items-center gap-2">
+              Explore the Data Dashboard
+            </Link>
+            <button className="px-6 py-3 bg-transparent border-2 border-console-blue text-console-gray font-bold rounded-md hover:bg-console-blue hover:text-console-light-gray transition-all flex items-center gap-2">
+              <Download size={20} /> Download Full Report
+            </button>
+          </div>
         </div>
-    );
+        <div className="relative h-96 md:h-full w-full rounded-lg border-2 border-console-blue bg-console-dark/50 p-4 shadow-2xl shadow-console-dark">
+          <Image src="/osun-map.svg" alt="Interactive Map of Osun State" layout="fill" objectFit="contain" unoptimized />
+          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">LIVE</div>
+        </div>
+      </section>
+
+      {/* Data Dashboard Teaser */}
+      <section className="text-center">
+         <h2 className="text-3xl font-bold text-console-light-gray mb-2">Data Dashboard Teaser</h2>
+         <p className="text-console-gray mb-8">Live indicators from across our key dimensions.</p>
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <ChartComponent 
+              chartType="LineChart"
+              data={outOfSchoolData}
+              series={[{ type: 'Line', dataKey: 'Osun Rate (%)', stroke: '#66f4e1', strokeWidth: 2, dot: { r: 4, fill: '#66f4e1' } }]}
+              title="Out-of-School Children Trend"
+              description="Illustrative trend showing a decline in the percentage of out-of-school children."
+            />
+            <ChartComponent 
+              chartType="BarChart"
+              data={unemploymentData}
+              series={[{ type: 'Bar', dataKey: 'Rate', fill: '#1a344d', stroke: '#66f4e1' }]}
+              title="Unemployment Rate Comparison (Q4 2020)"
+              description="Comparing Osun's low unemployment rate to national and other state averages."
+            />
+         </div>
+      </section>
+
+      {/* Level 1: Overview of Key Dimensions */}
+      <section>
+        <h2 className="text-3xl font-bold text-center text-console-light-gray mb-12">Overview of Key Dimensions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dimensions.map((item, index) => (
+            <Link href={item.href} key={index} className="group block p-6 bg-console-dark/50 rounded-lg border border-console-blue hover:border-console-cyan hover:bg-console-blue/30 transition-all duration-300 transform hover:-translate-y-1">
+              <div className="flex items-start gap-4">
+                <item.icon className="w-10 h-10 text-console-cyan mt-1 transition-transform group-hover:scale-110" />
+                <div>
+                  <h3 className="text-xl font-bold text-console-light-gray group-hover:text-console-cyan transition-colors">{item.title}</h3>
+                  <p className="mt-2 text-sm text-console-gray">{item.description}</p>
+                  <div className="mt-4 text-sm font-semibold text-console-cyan flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Learn more <ArrowRight size={16} />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Level 1: Latest News & Highlights */}
+      <section>
+        <h2 className="text-3xl font-bold text-center text-console-light-gray mb-12">Latest News & Highlights</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {newsItems.map((news, index) => (
+                 <div key={index} className="relative p-6 bg-console-dark/50 rounded-lg border border-console-blue overflow-hidden">
+                    <div className="absolute top-4 right-4 text-xs font-mono bg-console-blue text-console-cyan px-2 py-1 rounded">{news.tag}</div>
+                    <Rss className="w-8 h-8 text-console-cyan/50 mb-4"/>
+                    <h3 className="text-lg font-bold text-console-light-gray mb-2">{news.title}</h3>
+                    <p className="text-sm text-console-gray flex-grow">{news.description}</p>
+                    <a href="#" className="mt-4 inline-block text-sm font-semibold text-console-cyan hover:underline">Read Full Story &rarr;</a>
+                 </div>
+            ))}
+        </div>
+      </section>
+      
+    </div>
+  );
 }
