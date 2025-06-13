@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-padding-top: 5rem; /* Offset for sticky header */
+}
+
+body {
+  @apply bg-slate-900 text-slate-200 antialiased;
+}
+
+/* Custom prose styles for the console theme */
+.prose-custom {
+  @apply prose prose-invert max-w-none;
+  /* Override default prose colors to match the theme */
+  --tw-prose-body: theme('colors.slate.300');
+  --tw-prose-headings: theme('colors.sky.400');
+  --tw-prose-lead: theme('colors.slate.400');
+  --tw-prose-links: theme('colors.teal.400');
+  --tw-prose-bold: theme('colors.slate.100');
+  --tw-prose-counters: theme('colors.slate.400');
+  --tw-prose-bullets: theme('colors.teal.500');
+  --tw-prose-hr: theme('colors.slate.700');
+  --tw-prose-quotes: theme('colors.slate.300');
+  --tw-prose-quote-borders: theme('colors.teal.500');
+  --tw-prose-captions: theme('colors.slate.500');
+  --tw-prose-code: theme('colors.pink.400');
+  --tw-prose-pre-code: theme('colors.pink.400');
+  --tw-prose-pre-bg: theme('colors.slate.800');
+  --tw-prose-th-borders: theme('colors.slate.600');
+  --tw-prose-td-borders: theme('colors.slate.700');
+}
+
+.prose-custom p {
+    @apply leading-relaxed text-justify;
+}
+
+.prose-custom h3 {
+    @apply border-b border-slate-700 pb-2 mb-6;
+}
+
+.prose-custom h4 {
+    @apply text-teal-400 tracking-wider;
+}
+
+/* Active Nav Link Style */
+.nav-link.active {
+  @apply text-teal-300 border-teal-300 bg-slate-800;
+}
+
+.mobile-nav-link.active {
+    @apply text-teal-300 bg-slate-700/50;
+}
