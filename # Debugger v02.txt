@@ -18,6 +18,22 @@ each webpage created mus have a minimum of 32,000 characters
 
 ---
 
+dependencies:
++ chart.js 4.4.9
++ next 14.2.4
++ react 18.3.1
++ react-dom 18.3.1
+
+devDependencies:
++ @tailwindcss/typography 0.5.16
++ autoprefixer 10.4.21
++ eslint 9.28.0
++ eslint-config-next 14.2.4
++ postcss 8.5.5
++ tailwindcss 3.4.17
+
+---
+
 Here’s an end-to-end ordering that covers setup, installs, conflict-fixes, Python tooling, dev-cycle commands (format → lint → type-check → test), validation/analysis, then your run/build/start steps:
 
 ```bash
