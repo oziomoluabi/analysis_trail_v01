@@ -4,7 +4,7 @@ import React from 'react';
 import ChartComponent from './ChartComponent';
 import { commonChartOptions } from '../lib/utils';
 import Accordion from './Accordion';
-import MapComponent from './MapComponent'; // Import the new MapComponent
+import MapComponent from './MapComponent';
 
 const SectionOverview = () => {
     const ageDistributionData = {
@@ -56,8 +56,8 @@ const SectionOverview = () => {
             <div className="mt-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <div className="prose-custom">
                     <h3 className="text-2xl font-semibold mb-4 text-sky-400 uppercase tracking-wider">State Profile: Demographics and Economy</h3>
-                    <p>Osun State, located in the south-western geopolitical zone of Nigeria, presents a fascinating case study in development dynamics. Its projected 2025 population of 4.6 million people is characterized by a significant "youth bulge." With adolescents (10-19 years) comprising 23.7%, children (0-14 years) making up 34.3%, and young adults (15-24 years) at 17.2%, over half the population is under the age of 25. This demographic structure is a double-edged sword: it offers a vast potential workforce and a source of innovation, but simultaneously places immense strain on public services like education, healthcare, and job creation infrastructure. The dependency ratio is high, challenging the capacity of the working-age population to support both the young and the elderly.</p>
-                    <p>The state's economy is predominantly agrarian, with agriculture contributing an estimated 35% to the state's GDP. Key crops include yam, cassava, maize, and cocoa, which has historically been a major cash crop. However, the services sector, encompassing trade, transportation, and public administration, has grown to become the largest contributor at approximately 55%. The industrial sector, including small-scale manufacturing and processing, remains relatively underdeveloped, contributing around 10%. This economic structure highlights a vulnerability to fluctuations in agricultural output and a need to diversify into higher value-added industries to create sustainable employment for its burgeoning youth population.</p>
+                    <p>Osun State, located in the south-western geopolitical zone of Nigeria, presents a fascinating case study in development dynamics. Its projected 2025 population of 4.6 million people is characterized by a significant &quot;youth bulge.&quot; With adolescents (10-19 years) comprising 23.7%, children (0-14 years) making up 34.3%, and young adults (15-24 years) at 17.2%, over half the population is under the age of 25. This demographic structure is a double-edged sword: it offers a vast potential workforce and a source of innovation, but simultaneously places immense strain on public services like education, healthcare, and job creation infrastructure. The dependency ratio is high, challenging the capacity of the working-age population to support both the young and the elderly.</p>
+                    <p>The state&apos;s economy is predominantly agrarian, with agriculture contributing an estimated 35% to the state&apos;s GDP. Key crops include yam, cassava, maize, and cocoa, which has historically been a major cash crop. However, the services sector, encompassing trade, transportation, and public administration, has grown to become the largest contributor at approximately 55%. The industrial sector, including small-scale manufacturing and processing, remains relatively underdeveloped, contributing around 10%. This economic structure highlights a vulnerability to fluctuations in agricultural output and a need to diversify into higher value-added industries to create sustainable employment for its burgeoning youth population.</p>
                 </div>
                 <div className="space-y-8">
                     <ChartComponent chartId="ageDistributionChart" type="doughnut" data={ageDistributionData} options={ageDistributionOptions} footerText="Source: Osun State Projections (2025)" />
@@ -82,9 +82,8 @@ const SectionOverview = () => {
                      </Accordion>
                      <Accordion title="Infrastructure and Geographic Analysis">
                         <h4>Infrastructure Deep Dive</h4>
-                        <p>Access to reliable infrastructure remains a primary constraint on growth. The state's road network, while connecting major towns, deteriorates significantly in rural areas, creating logistical bottlenecks for agriculture. The dependence on a fragile national power grid stifles industrial ambition and forces businesses into costly self-generation, eroding profitability.</p>
+                        <p>Access to reliable infrastructure remains a primary constraint on growth. The state&apos;s road network, while connecting major towns, deteriorates significantly in rural areas, creating logistical bottlenecks for agriculture. The dependence on a fragile national power grid stifles industrial ambition and forces businesses into costly self-generation, eroding profitability.</p>
                         <div className="mt-6">
-                            {/* HERE IS THE INTEGRATION OF THE NEW MAP COMPONENT */}
                             <MapComponent />
                         </div>
                      </Accordion>
